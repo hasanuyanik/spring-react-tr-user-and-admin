@@ -1,10 +1,10 @@
-package com.userandadmin.ws;
+package com.userandadmin.wsproject;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WsApplicationTests {
+class WsProjectApplicationTests {
 
 	@Test
 	void contextLoads() {
