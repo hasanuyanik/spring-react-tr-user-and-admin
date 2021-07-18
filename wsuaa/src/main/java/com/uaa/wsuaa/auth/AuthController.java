@@ -19,12 +19,21 @@ public class AuthController {
 	AuthResponse handleAuthentication(@RequestBody Credentials credentials) {
 		return authService.authenticate(credentials);
 	}
+	@PostMapping("/api/1.0/admin/auth")
+	AuthResponse handleAuthenticationAdmin(@RequestBody Credentials credentials) {
+		return authService.authenticateAdmin(credentials);
+	}
 	
 	@PostMapping("/api/1.0/logout")
 	GenericResponse handleLogout(@RequestHeader(name = "Authorization") String authorization) {
 		String token = authorization.substring(7);
+		
+		try {
 		authService.clearToken(token);
-		return new GenericResponse("Logout Success");
+		return new GenericResponse("Logout Success "+ token);
+		}catch(Exception e) {
+		return new GenericResponse(token+"-----------Logout Fail----------"+e);	
+		}
 	}
 	
 }

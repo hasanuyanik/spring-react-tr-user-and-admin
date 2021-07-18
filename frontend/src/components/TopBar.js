@@ -8,11 +8,12 @@ import ProfileImageWithDefault from './ProfileImageWithDefault';
 
 const TopBar = (props) => {
 const {t} = useTranslation();
-const { username, isLoggedIn, displayName, image} = useSelector((store) => ({
+const { username, isLoggedIn, displayName, image, role} = useSelector((store) => ({
     isLoggedIn: store.isLoggedIn,
     username: store.username,
     displayName: store.displayName,
-    image: store.image
+    image: store.image,
+    role: store.role
 }));
 
 const menuArea = useRef(null);
@@ -64,7 +65,7 @@ let links = (
                 image={image} 
                 width="32" height="32" 
                 className="rounded-circle m-auto"/>
-                <span className="m-auto p-2 dropdown-toggle">{displayName}</span>
+                <span className="m-auto p-2 dropdown-toggle">{displayName}{!displayName && `${username}-${role}`}</span>
             </div>
             <div className={dropDownClass}>
                 <Link className="dropdown-item d-flex p-2" to={`/user/${username}`}  onClick={()=> setMenuVisible(false)}>

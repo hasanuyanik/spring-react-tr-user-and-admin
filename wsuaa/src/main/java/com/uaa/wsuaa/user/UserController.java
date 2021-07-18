@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import com.uaa.wsuaa.admin.Admin;
 import com.uaa.wsuaa.shared.CurrentUser;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,11 @@ public class UserController {
 	
 	@GetMapping("/users")
 	Page<UserVM> getUsers(Pageable page, @CurrentUser User user){
-		return userService.getUsers(page, user).map(UserVM::new);
+		User isUser = userService.getByUsername(user.getUsername());
+		if(isUser.getUsername().isEmpty()) {
+			return null;
+		}
+		return userService.getUsers(page).map(UserVM::new);
 	}
 	@GetMapping("/users/{username}")
 	UserVM getUser(@PathVariable String username) {

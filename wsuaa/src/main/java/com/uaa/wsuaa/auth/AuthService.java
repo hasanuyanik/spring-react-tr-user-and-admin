@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.uaa.wsuaa.admin.Admin;
+import com.uaa.wsuaa.admin.AdminRepository;
+import com.uaa.wsuaa.admin.vm.AdminVM;
 import com.uaa.wsuaa.user.User;
 import com.uaa.wsuaa.user.UserRepository;
 import com.uaa.wsuaa.user.vm.UserVM;
@@ -18,14 +21,17 @@ import com.uaa.wsuaa.user.vm.UserVM;
 public class AuthService {
 	
 	UserRepository userRepository;
+	
+	AdminRepository adminRepository;
 
 	PasswordEncoder passwordEncoder;
 	
 	TokenRepository tokenRepository;
 	
-	public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, TokenRepository tokenRepository) {
+	public AuthService(UserRepository userRepository, AdminRepository adminRepository, PasswordEncoder passwordEncoder, TokenRepository tokenRepository) {
 		super();
 		this.userRepository = userRepository;
+		this.adminRepository = adminRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.tokenRepository = tokenRepository;
 	}
@@ -51,6 +57,28 @@ public class AuthService {
 			response.setToken(token);
 			return response;
 	}
+	
+	public AuthResponse authenticateAdmin(Credentials credentials) {
+		Admin inDB = adminRepository.findByUsername(credentials.getUsername());
+		if(inDB == null) {
+			throw new AuthException();
+		}
+		boolean matches = passwordEncoder.matches(credentials.getPassword(), inDB.getPassword());
+		if(!matches) {
+			throw new AuthException();
+		}	
+			AdminVM adminVM = new AdminVM(inDB);
+			String token = generateRandomToken();
+			
+			Token tokenEntity = new Token();
+			tokenEntity.setToken(token);
+			tokenEntity.setAdmin(inDB);
+			tokenRepository.save(tokenEntity);			
+			AuthResponse response = new AuthResponse();
+			response.setAdmin(adminVM);
+			response.setToken(token);
+			return response;
+	}
 
 	@Transactional
 	public UserDetails getUserDetails(String token) {
@@ -67,7 +95,6 @@ public class AuthService {
 
 	public void clearToken(String token) {
 		tokenRepository.deleteById(token);
-		
 	}
 
 }

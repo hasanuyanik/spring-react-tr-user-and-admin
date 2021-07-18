@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react';
 import { getUsers } from '../api/apiCalls';
 import { useTranslation } from 'react-i18next';
 import UserListItem from './UserListItem';
+import { useSelector } from 'react-redux';
 import { useApiProgress } from '../shared/ApiProgress';
 import Spinner from './Spinner';
 
-const UserList = () => {
+const UserList = (props) => {
 
     const [page, setPage] = useState({
         content:[],
@@ -20,6 +21,11 @@ const UserList = () => {
     useEffect(() => {
         loadUsers();
     }, []);
+
+    const { isLoggedIn, role} = useSelector((store) => ({
+        isLoggedIn: store.isLoggedIn,
+        role: store.role
+    }));
 
     const onClickNext = () => {
         const nextPage = page.number + 1;
@@ -67,6 +73,7 @@ const UserList = () => {
             <div className="card">
                 <h3 className="card-header text-center">{t('Users')}</h3>
                 <div className="list-group-flush">
+                    {role}
             {users.map(user => (
                     <UserListItem key={user.username} user={user} />
                 )

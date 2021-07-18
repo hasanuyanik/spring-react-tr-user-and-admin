@@ -1,4 +1,4 @@
-package com.uaa.wsuaa.user;
+package com.uaa.wsuaa.admin;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -8,6 +8,8 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
+
+import com.uaa.wsuaa.user.UniqueUsernameValidator;
 
 @Target({ FIELD })
 @Retention(RUNTIME)

@@ -2,6 +2,8 @@ import React from "react";
 import ApiProgress from "../shared/ApiProgress";
 import UserSignupPage from "../pages/UserSignupPage";
 import UserLoginPage from "../pages/UserLoginPage";
+import AdminSignupPage from "../pages/AdminSignupPage";
+import AdminLoginPage from "../pages/AdminLoginPage";
 import LanguageSelector from "../components/LanguageSelector";
 import HomePage from "../pages/HomePage";
 import {HashRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
@@ -24,6 +26,12 @@ const App = () => {
         )}
         {!isLoggedIn && (
         <Route path="/signup" component={UserSignupPage}/>
+        )}
+        {!isLoggedIn && (
+        <Route path="/admin/login" component={AdminLoginPage}/>
+        )}
+        {!isLoggedIn && (
+        <Route path="/admin/signup" component={AdminSignupPage}/>
         )}
         <Route path="/user/:username" component={UserPage}/>
         <Redirect to="/"/>
