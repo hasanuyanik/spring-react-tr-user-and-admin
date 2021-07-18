@@ -1,0 +1,32 @@
+spring:
+  jpa: 
+    properties:
+     javax:
+      persistance:
+        validation:
+          mode: none
+  batch:
+   job:
+    enabled: false
+  profiles:
+    active:
+       - dev
+hoaxify:
+  upload-path: picture-storage
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/user_and_admin
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+hoaxify:
+  upload-path: storage-dev
+#  data:
+#    web:
+#      pageable:
+#        page-parameter: currentPage
+#        size-parameter: pageSize
