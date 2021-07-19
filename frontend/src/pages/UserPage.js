@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ProfileCard  from '../components/ProfileCard';
-import { getUser } from '../api/apiCalls';
+import { getUser, getUserAdmin } from '../api/apiCalls';
 import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useApiProgress } from '../shared/ApiProgress';
@@ -22,7 +22,7 @@ const UserPage = () => {
             const response = await getUser(username);
             setUser(response.data);
             }catch(error){
-            setNotFound(true);
+                setNotFound(true);
             }
         }
         loadUser();

@@ -11,7 +11,7 @@ spring:
   profiles:
     active:
        - dev
-hoaxify:
+uaa:
   upload-path: picture-storage
 ---
 spring:
@@ -23,7 +23,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-hoaxify:
+uaa:
   upload-path: storage-dev
 #  data:
 #    web:

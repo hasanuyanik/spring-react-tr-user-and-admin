@@ -13,7 +13,7 @@ import Modal from './Modal';
 const ProfileCard = props => {
     const [inEditMode, setInEditMode] = useState(false);
     const [updatedDisplayName, setUpdatedDisplayName] = useState();
-    const { username: loggedInUsername } = useSelector((store) => ({username: store.username}));
+    const { username: loggedInUsername, role } = useSelector((store) => ({username: store.username}));
     const routeParams = useParams();
     const pathUsername = routeParams.username;
     const [user, setUser] = useState({});
@@ -108,7 +108,7 @@ return (
     <div className="card text-center">
         <div className="card-header">
         <ProfileImageWithDefault
-            className="rounded-circle shadow" 
+            className="rounded-circle img-circle shadow" 
             width="200" 
             height="200" 
             alt={`${username} profile`} 

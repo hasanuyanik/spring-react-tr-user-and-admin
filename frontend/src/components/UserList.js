@@ -22,9 +22,8 @@ const UserList = (props) => {
         loadUsers();
     }, []);
 
-    const { isLoggedIn, role} = useSelector((store) => ({
-        isLoggedIn: store.isLoggedIn,
-        role: store.role
+    const { isLoggedIn, admin} = useSelector((store) => ({
+        isLoggedIn: store.isLoggedIn
     }));
 
     const onClickNext = () => {
@@ -68,12 +67,12 @@ const UserList = (props) => {
             <Spinner />
         );
     }
-    
+
         return (
+           <div className="container">
             <div className="card">
                 <h3 className="card-header text-center">{t('Users')}</h3>
-                <div className="list-group-flush">
-                    {role}
+                <div className="list-group-flush">       
             {users.map(user => (
                     <UserListItem key={user.username} user={user} />
                 )
@@ -82,6 +81,7 @@ const UserList = (props) => {
                 {actionDiv}
                 {loadFailure && <div className="text-center text-danger">{t('Load Failure')}</div>}
             </div>
+           </div>
         );
     
 }

@@ -73,13 +73,12 @@ public class AuthService {
 			Token tokenEntity = new Token();
 			tokenEntity.setToken(token);
 			tokenEntity.setAdmin(inDB);
-			tokenRepository.save(tokenEntity);			
+			tokenRepository.save(tokenEntity);		
 			AuthResponse response = new AuthResponse();
 			response.setAdmin(adminVM);
 			response.setToken(token);
 			return response;
-	}
-
+	} 
 	@Transactional
 	public UserDetails getUserDetails(String token) {
 		Optional<Token> optionalToken = tokenRepository.findById(token);

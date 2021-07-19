@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import com.uaa.wsuaa.admin.Admin;
+import com.uaa.wsuaa.admin.AdminService;
 import com.uaa.wsuaa.shared.CurrentUser;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,9 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	AdminService adminService;
+	
 	@PostMapping("/users")
 	@ResponseStatus(HttpStatus.CREATED)
 	public GenericResponse createUser(@Valid @RequestBody User user) {
@@ -39,11 +43,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/users")
-	Page<UserVM> getUsers(Pageable page, @CurrentUser User user){
-		User isUser = userService.getByUsername(user.getUsername());
-		if(isUser.getUsername().isEmpty()) {
-			return null;
-		}
+	Page<UserVM> getUsers(Pageable page, @CurrentUser Admin admin){
 		return userService.getUsers(page).map(UserVM::new);
 	}
 	@GetMapping("/users/{username}")

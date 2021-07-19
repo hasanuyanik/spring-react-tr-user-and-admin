@@ -39,6 +39,10 @@ public class Admin implements UserDetails{
 	@UniqueUsername(message = "{uaa.constraints.username.UniqueUsername.message}")
 	private String username;
 	
+	@NotNull
+	@Size(min = 4, max = 255)
+	private String displayName;
+	
 	@Size(min = 8, max = 255)
 	@NotNull
 	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "{uaa.constraints.password.Pattern.message}")

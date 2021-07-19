@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "hoaxify")
+@ConfigurationProperties(prefix = "uaa")
 public class AppConfiguration {
 	private String uploadPath;
 }

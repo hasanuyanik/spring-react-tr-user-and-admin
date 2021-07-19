@@ -38,7 +38,7 @@ const onLogoutSuccess = () => {
 };
    
 let links = (
-<ul className="navbar-nav ml-auto">
+<ul className="navbar-nav ms-auto">
 <li>
     <Link className="nav-link" to="/login">
         {t("Login")}
@@ -47,6 +47,11 @@ let links = (
 <li>
     <Link className="nav-link" to="/signup">
         {t("Sign Up")}
+    </Link>
+</li>
+<li>
+    <Link className="nav-link" to="/admin/login">
+        {t("Admin Login")}
     </Link>
 </li>
 </ul>
@@ -58,23 +63,25 @@ let links = (
             dropDownClass += ' show';
         }
         links = (
-            <ul className="navbar-nav m-auto" ref={menuArea}>
+            <ul className="navbar-nav ms-auto" ref={menuArea}>
             <li className="nav-item dropdown">
             <div className="nav-link d-flex" style={{ cursor: 'pointer'}} onClick={()=> setMenuVisible(true)}>
                 <ProfileImageWithDefault 
                 image={image} 
                 width="32" height="32" 
-                className="rounded-circle m-auto"/>
-                <span className="m-auto p-2 dropdown-toggle">{displayName}{!displayName && `${username}-${role}`}</span>
+                className="rounded-circle img-circle m-auto"/>
+                <span className="dropdown-toggle p-2">{displayName}{!displayName && `${username}-${role}`}</span>
             </div>
             <div className={dropDownClass}>
-                <Link className="dropdown-item d-flex p-2" to={`/user/${username}`}  onClick={()=> setMenuVisible(false)}>
-                    <i className="material-icons text-info mr-2">person</i>
-                    <span className="p-2">{t("My Profile")}</span>
+                {role == "user" && (
+                <Link className="dropdown-item d-flex" to={`/user/${username}`}  onClick={()=> setMenuVisible(false)}>
+                    <i className="material-icons text-info">person</i>
+                    <span className="">{t("My Profile")}</span>
                 </Link>
-                <span className="dropdown-item d-flex p-2" onClick={onLogoutSuccess} style={{ cursor: 'pointer'}}>
-                    <i className="material-icons text-info mr-2">power_settings_new</i>
-                    <span className="p-2">{t("Logout")}</span>
+                )}
+                <span className="dropdown-item d-flex" onClick={onLogoutSuccess} style={{ cursor: 'pointer'}}>
+                    <i className="material-icons text-info">power_settings_new</i>
+                    <span className="">{t("Logout")}</span>
                 </span> 
             </div>
             </li>
@@ -86,8 +93,8 @@ let links = (
         <div className="shadow-sm bg-light mb-2">
             <nav className="navbar navbar-light navbar-expand container">
                 <Link className="navbar-brand d-flex" to="/">
-                    <img src={logo} width="60" alt="Hoaxify Logo"/>
-                    <span className="m-auto p-2">Hoaxify</span>
+                    {/* <img src={logo} width="60" alt="User&Admin Logo"/> */}
+                    <span className="m-auto p-2">User&Admin</span>
                 </Link>
                 {links}
                </nav>

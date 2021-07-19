@@ -10,17 +10,24 @@ import {HashRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import UserPage from '../pages/UserPage';
 import TopBar from "../components/TopBar";
 import { useSelector } from 'react-redux';
+import UserList from "../components/UserList";
 
 const App = () => { 
-  const { isLoggedIn } = useSelector((store) => ({
-    isLoggedIn: store.isLoggedIn
+  const { isLoggedIn, role } = useSelector((store) => ({
+    isLoggedIn: store.isLoggedIn,
+    role: store.role
   }));
   return (
     <div>
       <Router>
         <TopBar />
         <Switch>
+        {role != "admin" && (
         <Route exact path="/" component={HomePage}/>
+        )}
+        {role == "admin" && (
+        <Route exact path="/" component={UserList}/>
+        )}
         {!isLoggedIn && (
         <Route path="/login" component={UserLoginPage}/>
         )}

@@ -34,7 +34,7 @@ const AdminLoginPage = (props) => {
         
     }
     const {t} = useTranslation();
-    const pendingApiCall = useApiProgress('post','/api/1.0/auth');
+    const pendingApiCall = useApiProgress('post','/api/1.0/admin/auth');
         const buttonEnabled = username && password;
         return(
             <div className="container">

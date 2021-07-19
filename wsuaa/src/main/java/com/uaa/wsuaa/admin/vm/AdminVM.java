@@ -9,7 +9,10 @@ public class AdminVM {
 	
 	private String username;
 	
+	private String displayName;
+	
 	public AdminVM(Admin admin) {
 		this.setUsername(admin.getUsername());
+		this.setDisplayName(admin.getDisplayName());
 	}
 }

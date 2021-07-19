@@ -4,7 +4,6 @@ import UserList from '../components/UserList';
 const HomePage = () => {
     return (
         <div className="container">
-            <UserList />
         </div>
     );
 };
