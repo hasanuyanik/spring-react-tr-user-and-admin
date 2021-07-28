@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uaa.wsuaa.shared.GenericResponse;
 
 
+
 @RestController
 public class AuthController {
 	
 	@Autowired
 	AuthService authService;
-
+	
 	@PostMapping("/api/1.0/auth")
 	AuthResponse handleAuthentication(@RequestBody Credentials credentials) {
 		return authService.authenticate(credentials);

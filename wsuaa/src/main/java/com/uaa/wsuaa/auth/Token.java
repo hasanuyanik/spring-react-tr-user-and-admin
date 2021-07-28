@@ -16,11 +16,12 @@ public class Token {
 	@Id
 	private String token;
 	
-	@ManyToOne
-	private Admin admin;
-	
+
 	@ManyToOne
 	private User user;
 	
+	@ManyToOne
+	private Admin admin;
+		
 	
 }
